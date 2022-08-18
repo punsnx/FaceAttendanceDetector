@@ -7,11 +7,17 @@ mycol = mydb["users"]
 
 http = "http://skpcxv.thddns.net:7880"
 checkin = {"ID": "อย่าอ้วนดิ้","Stamp":"3 วันที่แล้ว"}
-workcol.insert_one(checkin)
-
-for x in mycol.find({},{ "_id": 0, "name": 1, "httpProfilePath": 1 }):
+#workcol.insert_one(checkin)
+"""
+for x in mycol.find({},{ "_id": 0, "name": 1, "profileFile": 1 }):
     try:
-        print(http +x["httpProfilePath"])
+        print(x["name"], x["profileFile"])
+        #print(http +x["profileFile"])
+        if
     except:
         print("error", x["name"])
-
+"""
+mydoc = mycol.find({ "studentID" : "47574" },{ "_id": 0, "name": 1,})
+for x in mydoc:
+  saidname = x["name"]
+  print(saidname)
