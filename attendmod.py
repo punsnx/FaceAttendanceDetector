@@ -8,15 +8,13 @@ from datetime import datetime
 
 import googlecloud as gc
 
-#import getface as GeT
-#import googlecloud as Gc
-
 myclient = pymongo.MongoClient("mongodb+srv://skdev:skdev123456789@skmongocluster.skdn9.mongodb.net/?retryWrites=true&w=majority")
 mydb = myclient["FaceAttendance"]
 workcol = mydb["Attendance"]
 mycol = mydb["users"]
 
 path = 'imgpool'
+extpath = 'imgreloaded'
 images = []
 classNames = []
 myList = os.listdir(path)
@@ -31,7 +29,12 @@ for cl in myList:
     images.append(curImg)
     classNames.append(os.path.splitext(cl)[0])
 print(classNames)
-
+'''
+def extractF():
+    print("begin extracting faces...")
+    for imgname in myList:
+        GeT.extractface(f'{path}/{cl}')
+'''
 def initialcsv():
     print("perform csv startup....")
     f = open('attendance.csv', 'r+')
@@ -126,6 +129,7 @@ while True:
 
         else:
             name = 'Unknown'
+            saidname = 'n/a'
 
         y1, x2, y2, x1 = faceLoc
         #y1, x2, y2, x1 = y1*4, x2*4, y2*4, x1*4
@@ -133,9 +137,15 @@ while True:
         cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
         #cv2.rectangle(img, (x1, y2-35), (x2, y2), (0, 255, 0), cv2.FILLED)#
         #cv2.putText(img, saidname, (x1+6, y2-6),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+        cv2.putText(img, name, (x1 + 6, y2 + 60), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
         cv2.putText(img, saidname, (x1 + 6, y2 + 25), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
 
-    cv2.imshow('camera feeder', img)
+    cv2.rectangle(img, (0, 0), (1000, 50), (0, 0, 255), cv2.FILLED)
+    now = datetime.now()
+    nowString = now.strftime('%c')
+    cv2.putText(img, nowString, (50, 35), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+
+    cv2.imshow('MBA attendance checker', img)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
