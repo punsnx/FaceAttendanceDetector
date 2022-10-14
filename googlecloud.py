@@ -18,5 +18,5 @@ def download_blob():
         #storage_client.bucket(bucket_name).blob(blob.name).download_to_filename(x.replace("IMG/user_profile/","imgpool_reloaded/"))
         storage_client.bucket(bucket_name).blob(blob.name).download_to_filename(x.replace("IMG/user_profile/", "imgpool/"))
 
-remove_file()
-download_blob()
+#remove_file()
+#download_blob()
